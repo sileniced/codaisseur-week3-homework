@@ -1,23 +1,15 @@
-import slugify from 'slugify';
+export const SET_MODELS = 'SET_MODELS';
+export const ADD_MODEL = 'ADD_MODEL';
 
-export const SET_COMPUTER_MODELS = 'SET_COMPUTER_MODELS';
-export const ADD_RENDERED_COMPUTER_MODEL = 'ADD_RENDERED_COMPUTER_MODEL';
-
-export const setComputerModels = computerModels => {
-
-  const payload = Object.keys(computerModels).map(name => ({
-    ...computerModels[name],
-    slug: slugify(name),
+export const setModels = models => ({
+  type: SET_MODELS,
+  payload: Object.keys(models).map(name => ({
+    ...models[name],
     name
-  }));
+  }))
+});
 
-  return {
-    type: SET_COMPUTER_MODELS,
-    payload
-  }
-};
-
-export const addRenderedComputerModels = computerModel => ({
-  type: ADD_RENDERED_COMPUTER_MODEL,
-  payload: computerModel
+export const addModel = model => ({
+  type: ADD_MODEL,
+  payload: model
 });

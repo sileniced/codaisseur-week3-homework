@@ -1,10 +1,14 @@
-import React, {PureComponent} from 'react';
-import {connect} from "react-redux";
+import React, { PureComponent } from 'react';
+import { connect } from "react-redux";
 
-import {addRenderedComputerModels, setComputerModels} from './actions/AppActions'
+import {
+  addModel,
+  setModels
+} from './actions/AppActions'
+
+import { ModelDetails } from "./components/ModelDetails";
 
 import './App.css';
-import {ModelDetails} from "./components/ModelDetails";
 
 const data = {
   "Ivel Z3": {
@@ -34,32 +38,31 @@ class App extends PureComponent {
   state = {};
 
   componentDidMount() {
-    !this.props.computerModels.length && this.props.setComputerModels(data);
+    !this.props.models.length && this.props.setModels(data);
   }
 
   updateSelection = event => {
-    this.setState({option: event.target.value})
+    this.setState({
+      option: event.target.value
+    })
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    const computerModel = this.props.computerModels.find(computerModel => computerModel.name === this.state.option);
-    this.props.addRenderedComputerModels(computerModel);
+    const model = this.props.models.find(computerModel => computerModel.name === this.state.option);
+    this.props.addModel(model);
   };
 
   render() {
     return (
       <div className="App">
-        {!this.props.computerModels.length && 'loading'}
-        {this.props.renderedComputerModels.map(model => <ModelDetails {...model} />)}
+        {!this.props.models.length && 'loading'}
+        {this.props.renderedModels.map(model => <ModelDetails {...model} />)}
         <form>
           <select onChange={this.updateSelection}>
             <option value="">-- pick a model --</option>
-            {this.props.computerModels.map(computerModel => (
-              <option
-                key={computerModel.slug}
-                value={computerModel.name}
-              >
+            {this.props.models.map(computerModel => (
+              <option value={computerModel.name}>
                 {computerModel.name} ({computerModel.year})
               </option>
             ))}
@@ -71,17 +74,11 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-                           computerModels,
-                           renderedComputerModels
-                         }) => ({
-  computerModels,
-  renderedComputerModels
-});
+const mapStateToProps = ({ models, renderedModels }) => ({ models, renderedModels });
 
 const mapDispatchToProps = {
-  setComputerModels,
-  addRenderedComputerModels
+  setModels,
+  addModel
 };
 
 

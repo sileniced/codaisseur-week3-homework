@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import computerModels from './computerModels'
-import renderedComputerModels from './renderedComputerModels'
+import models from './models'
+import renderedModels from './renderedModels'
 
 export default combineReducers({
-  computerModels,
-  renderedComputerModels
+  models,
+  renderedModels
 })

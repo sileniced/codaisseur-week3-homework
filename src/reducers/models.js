@@ -1,9 +1,9 @@
-import { SET_COMPUTER_MODELS } from "../actions/AppActions";
+import { SET_MODELS } from "../actions/AppActions";
 
 export default (state = [], action = {}) => {
   switch (action.type) {
 
-    case SET_COMPUTER_MODELS:
+    case SET_MODELS:
       return action.payload;
 
     default:
